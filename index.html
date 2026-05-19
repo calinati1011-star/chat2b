@@ -3,256 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Chat Statica</title>
+    <title>Chat P2P Senza Server</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #e5ddd5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .chat-container {
-            width: 100%;
-            max-width: 450px;
-            height: 90vh;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .chat-header {
-            background-color: #075e54;
-            color: white;
-            padding: 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-            background-size: contain;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .message {
-            max-width: 75%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            position: relative;
-            word-break: break-word;
-            animation: fadeIn 0.2s ease-in-out;
-            align-self: flex-end;
-            background-color: #d9fdd3;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-        }
-
-        .message img {
-            max-width: 100%;
-            max-height: 250px;
-            border-radius: 6px;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .message-time {
-            font-size: 0.75rem;
-            color: #667781;
-            text-align: right;
-            margin-top: 4px;
-            display: block;
-        }
-
-        .preview-area {
-            display: none;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-top: 1px solid #ddd;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .preview-area img {
-            max-height: 60px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        .cancel-preview {
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .chat-input-area {
-            display: flex;
-            padding: 10px;
-            background-color: #f0f0f0;
-            align-items: center;
-            gap: 10px;
-            border-top: 1px solid #ddd;
-        }
-
-        .file-label {
-            cursor: pointer;
-            padding: 8px;
-            background-color: #e1e1e1;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.2s;
-        }
-
-        .file-label:hover {
-            background-color: #d4d4d4;
-        }
-
-        .file-label svg {
-            width: 24px;
-            height: 24px;
-            fill: #54656f;
-        }
-
-        #textInput {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1px solid #fff;
-            border-radius: 20px;
-            outline: none;
-            font-size: 0.95rem;
-        }
-
-        #sendBtn {
-            background-color: #00a884;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-        }
-
-        #sendBtn:hover {
-            background-color: #008f72;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #e5ddd5; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
+        .room-login { display: flex; flex-direction: column; gap: 15px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
+        .room-login h2 { color: #075e54; }
+        .room-login input { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; outline: none; }
+        .room-login button { background-color: #00a884; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        
+        .chat-container { display: none; width: 100%; max-width: 450px; height: 90vh; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); flex-direction: column; overflow: hidden; }
+        .chat-header { background-color: #075e54; color: white; padding: 15px; font-size: 1.1rem; font-weight: bold; text-align: center; }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-size: contain; display: flex; flex-direction: column; gap: 10px; }
+        .message { max-width: 75%; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; word-break: break-word; align-self: flex-start; background-color: #fff; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+        .message.mine { align-self: flex-end; background-color: #d9fdd3; }
+        .message img { max-width: 100%; max-height: 250px; border-radius: 6px; display: block; margin-bottom: 4px; }
+        .message-time { font-size: 0.75rem; color: #667781; text-align: right; margin-top: 4px; display: block; }
+        
+        .preview-area { display: none; padding: 10px; background-color: #f0f0f0; border-top: 1px solid #ddd; align-items: center; gap: 10px; }
+        .preview-area img { max-height: 60px; border-radius: 4px; border: 1px solid #ccc; }
+        .cancel-preview { background: #ff4d4d; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .chat-input-area { display: flex; padding: 10px; background-color: #f0f0f0; align-items: center; gap: 10px; border-top: 1px solid #ddd; }
+        .file-label { cursor: pointer; padding: 8px; background-color: #e1e1e1; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .file-label svg { width: 24px; height: 24px; fill: #54656f; }
+        #textInput { flex: 1; padding: 10px 15px; border: 1px solid #fff; border-radius: 20px; outline: none; }
+        #sendBtn { background-color: #00a884; color: white; border: none; padding: 10px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; }
     </style>
+    <script src="https://unpkg.com/trystero@0.19.0/dist/trystero-torrent.min.js"></script>
 </head>
 <body>
 
-    <div class="chat-container">
-        <div class="chat-header">Mini Chat Persistent</div>
-        
+    <div class="room-login" id="roomLogin">
+        <h2>Chat P2P Istantanea</h2>
+        <p style="font-size: 0.9rem; color: #666;">Senza Server o API Key. Scegli un nome per la stanza e dallo a un amico.</p>
+        <input type="text" id="roomInput" placeholder="Nome stanza (es: segreta123)">
+        <button id="joinBtn">Entra</button>
+    </div>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header" id="chatHeaderTitle">Stanza: </div>
         <div class="chat-messages" id="chatMessages"></div>
         
         <div class="preview-area" id="previewArea">
-            <img id="imgPreview" src="" alt="Anteprima">
+            <img id="imgPreview" src="">
             <button class="cancel-preview" id="cancelImgBtn">✕</button>
-            <span style="font-size: 0.85rem; color: #666;">Immagine pronta per l'invio</span>
         </div>
 
         <div class="chat-input-area">
-            <label for="fileInput" class="file-label" title="Invia Immagine">
+            <label for="fileInput" class="file-label">
                 <svg viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86l-3 3.87L9 13.14 6 17h12l-3.86-5.14z"></path></svg>
             </label>
             <input type="file" id="fileInput" accept="image/*" style="display: none;">
-            
             <input type="text" id="textInput" placeholder="Scrivi un messaggio..." autocomplete="off">
             <button id="sendBtn">Invia</button>
         </div>
     </div>
 
     <script>
+        const myUserId = Math.random().toString(36).substring(2, 9);
+        let sendAction = null;
+        let pendingImageBase64 = null;
+        let messageHistory = [];
+
+        // Carica la cronologia locale (ricorda i TUOI messaggi inviati/ricevuti in passato)
+        const roomInput = document.getElementById('roomInput');
         const chatMessages = document.getElementById('chatMessages');
         const textInput = document.getElementById('textInput');
         const fileInput = document.getElementById('fileInput');
-        const sendBtn = document.getElementById('sendBtn');
         const previewArea = document.getElementById('previewArea');
         const imgPreview = document.getElementById('imgPreview');
-        const cancelImgBtn = document.getElementById('cancelImgBtn');
 
-        let pendingImageBase64 = null;
+        document.getElementById('joinBtn').addEventListener('click', () => {
+            const roomName = roomInput.value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (!roomName) return alert("Inserisci un nome valido");
 
-        // Inizializzazione: Carica i messaggi salvati
-        let messages = JSON.parse(localStorage.getItem('static_chat_messages')) || [];
+            document.getElementById('chatHeaderTitle').textContent = "Stanza: " + roomName;
+            document.getElementById('roomLogin').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
 
-        function renderMessages() {
-            chatMessages.innerHTML = '';
-            messages.forEach(msg => {
-                const msgDiv = document.createElement('div');
-                msgDiv.className = 'message';
+            // Carica la memoria locale di questa stanza
+            messageHistory = JSON.parse(localStorage.getItem('p2p_history_' + roomName)) || [];
+            messageHistory.forEach(appendMessage);
 
-                // Se c'è un'immagine, la aggiunge
-                if (msg.image) {
-                    const img = document.createElement('img');
-                    img.src = msg.image;
-                    msgDiv.appendChild(img);
-                }
+            // Inizializza la connessione P2P (Senza API Key)
+            const config = {appId: 'mini-chat-p2p-anonima-2026'};
+            const room = trystero.joinRoom(config, roomName);
 
-                // Se c'è del testo, lo aggiunge
-                if (msg.text) {
-                    const textSpan = document.createElement('span');
-                    textSpan.textContent = msg.text;
-                    msgDiv.appendChild(textSpan);
-                }
+            // Definisce l'azione di invio/ricezione messaggio
+            const [sendMessageP2P, listenMessageP2P] = room.makeAction('chat');
+            sendAction = sendMessageP2P;
 
-                // Aggiunge l'orario
-                const timeSpan = document.createElement('span');
-                timeSpan.className = 'message-time';
-                timeSpan.textContent = msg.time;
-                msgDiv.appendChild(timeSpan);
-
-                chatMessages.appendChild(msgDiv);
+            // Ascolta i messaggi degli altri in tempo reale
+            listenMessageP2P((data) => {
+                appendMessage(data);
+                saveToLocal(roomName, data);
             });
-            // Scroll automatico verso il basso
+
+            // Quando un nuovo utente si connette, gli mandiamo la nostra cronologia per aggiornarlo
+            const [sendHistory, listenHistory] = room.makeAction('history');
+            room.onPeerJoin(peerId => {
+                if(messageHistory.length > 0) sendHistory(messageHistory, peerId);
+            });
+            listenHistory((historicMessages) => {
+                if(messageHistory.length === 0) { // Se siamo nuovi, prendiamo la storia passata
+                    messageHistory = historicMessages;
+                    localStorage.setItem('p2p_history_' + roomName, JSON.stringify(messageHistory));
+                    chatMessages.innerHTML = '';
+                    messageHistory.forEach(appendMessage);
+                }
+            });
+        });
+
+        function appendMessage(msg) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${msg.userId === myUserId ? 'mine' : ''}`;
+
+            if (msg.image) {
+                const img = document.createElement('img');
+                img.src = msg.image;
+                msgDiv.appendChild(img);
+            }
+            if (msg.text) {
+                const textSpan = document.createElement('span');
+                textSpan.textContent = msg.text;
+                msgDiv.appendChild(textSpan);
+            }
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'message-time';
+            timeSpan.textContent = msg.time;
+            msgDiv.appendChild(timeSpan);
+
+            chatMessages.appendChild(msgDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Gestione selezione file immagine
+        function saveToLocal(roomName, msg) {
+            messageHistory.push(msg);
+            localStorage.setItem('p2p_history_' + roomName, JSON.stringify(messageHistory));
+        }
+
+        // Gestione Immagini
         fileInput.addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
-                // Controllo dimensione preventiva per evitare crash del localStorage (~5MB limite del browser)
-                if (file.size > 2 * 1024 * 1024) {
-                    alert("L'immagine è troppo grande. Scegli un'immagine inferiore a 2MB per il salvataggio in memoria.");
+                if (file.size > 700 * 1024) { // Limite leggero per trasmissione diretta
+                    alert("Immagine troppo pesante per il P2P. Usa file sotto i 700KB.");
                     this.value = '';
                     return;
                 }
-
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     pendingImageBase64 = e.target.result;
@@ -263,60 +162,42 @@
             }
         });
 
-        // Rimuovi l'immagine in anteprima
-        cancelImgBtn.addEventListener('click', () => {
+        document.getElementById('cancelImgBtn').addEventListener('click', () => {
             pendingImageBase64 = null;
             fileInput.value = '';
             previewArea.style.display = 'none';
         });
 
-        // Funzione per inviare il messaggio
-        function sendMessage() {
+        function handleSend() {
             const textValue = textInput.value.trim();
-
-            // Blocca l'invio se non c'è né testo né immagine
             if (!textValue && !pendingImageBase64) return;
 
             const now = new Date();
             const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            const newMessage = {
+            const msgData = {
+                userId: myUserId,
                 text: textValue || null,
                 image: pendingImageBase64 || null,
                 time: timeString
             };
 
-            // Salva nell'array e aggiorna il localStorage
-            messages.push(newMessage);
-            try {
-                localStorage.setItem('static_chat_messages', JSON.stringify(messages));
-            } catch (error) {
-                // Gestione dell'errore QuotaExceededError se il localStorage si riempie di immagini
-                alert("La memoria del browser è piena. Impossibile salvare nuovi messaggi con immagini così pesanti.");
-                messages.pop(); // Rimuove l'ultimo non salvato
-                return;
-            }
+            // Invia l'evento via P2P agli altri dispositivi connessi nella stanza
+            if(sendAction) sendAction(msgData);
 
-            // Reset degli input e dell'anteprima
+            // Mostra a se stessi e salva
+            appendMessage(msgData);
+            const roomName = roomInput.value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            saveToLocal(roomName, msgData);
+
             textInput.value = '';
             pendingImageBase64 = null;
             fileInput.value = '';
             previewArea.style.display = 'none';
-
-            // Aggiorna la vista
-            renderMessages();
         }
 
-        // Eventi di invio (Click pulsante e tasto Invio)
-        sendBtn.addEventListener('click', sendMessage);
-        textInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        // Primo avvio
-        renderMessages();
+        document.getElementById('sendBtn').addEventListener('click', handleSend);
+        textInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
     </script>
 </body>
 </html>
