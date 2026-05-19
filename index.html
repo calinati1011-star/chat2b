@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Pagina di Napoleone e Marco</title>
+    <title>Tutto il mio amore per Gheorghe e Geracitano</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            background-color: #fff0f5; /* Sfondo rosa chiarissimo romantico */
             color: #333;
             display: flex;
             flex-direction: column;
@@ -22,45 +22,59 @@
         .container {
             background: white;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.15);
             max-width: 600px;
             width: 100%;
+            border: 1px solid #ffb6c1;
         }
 
         h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
+            color: #d32f2f;
+            margin-bottom: 15px;
+            font-size: 28px;
         }
 
         p {
             line-height: 1.6;
-            color: #555;
+            color: #4a4a4a;
+            font-size: 16px;
+        }
+
+        .love-text {
+            font-style: italic;
+            font-weight: 500;
+            color: #b71c1c;
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
         }
 
         .img-lazari {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
-            margin: 20px 0;
-            border: 2px solid #ddd;
+            margin: 15px 0;
+            border: 2px solid #ffb6c1;
         }
 
         button {
-            background-color: #2ecc71;
+            background-color: #e91e63;
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 28px;
             font-size: 16px;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 30px; /* Pulsante più arrotondato */
             cursor: pointer;
             transition: background 0.2s ease, transform 0.1s ease;
             margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
         }
 
         button:hover {
-            background-color: #27ae60;
+            background-color: #c2185b;
         }
 
         button:active {
@@ -72,7 +86,7 @@
             max-width: 100%;
             height: auto;
             margin-top: 20px;
-            border: 4px solid #e74c3c;
+            border: 4px solid #e91e63;
             border-radius: 8px;
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -86,19 +100,17 @@
 <body>
 
     <div class="container">
-        <h1>Napoleone e la Teoria del Tutto</h1>
+        <h1>Per Gheorghe e Geracitano, i miei due grandi amori ❤️</h1>
         
-        <p>
-            Si dice che Napoleone Bonaparte non fosse così basso come raccontano, ma di sicuro non aveva uno smartphone per controllare questa pagina. 
-            Mentre lui pianificava la campagna di Russia, noi inseriamo immagini a caso nel codice. 
-            L'evoluzione umana è straordinaria.
+        <p class="love-text">
+            Non esistono parole abbastanza grandi per spiegare quanto vi amo. Gheorghe e Geracitano siete la mia felicità, i miei due amori più grandi, la luce di ogni singola giornata. Questo spazio è interamente dedicato a voi e a tutto l'amore immenso che provo!
         </p>
         
         <img class="img-lazari" src="lazari.png" alt="Immagine Lazari">
 
-        <p>Qui sotto c'è un pulsante. Se lo premi, evocherai Marco per esattamente due secondi. Sei pronto al potere?</p>
+        <p>Pronto a vedere un'altra meraviglia? Clicca qui sotto per far apparire la foto per due secondi!</p>
         
-        <button id="magicBtn">Evoca Marco</button>
+        <button id="magicBtn">Evoca foto amore gera</button>
 
         <div>
             <img id="marcoImg" src="marco.png" alt="Immagine Marco">
@@ -108,7 +120,7 @@
     <script>
         const btn = document.getElementById('magicBtn');
         const marco = document.getElementById('marcoImg');
-        let timer; // Variabile per gestire il reset del timer se clicchi più volte
+        let timer; 
 
         btn.addEventListener('click', () => {
             // Resetta il timer precedente se l'utente clicca di continuo
